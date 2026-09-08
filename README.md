@@ -17,7 +17,7 @@ Atom3D features:
 * Skybox
 
 ## Credits
-- Thanks Joey de Vries (creator of _"learnopengl.com"_) for parts of _"learnopengl.com"_ code
+- Thanks Joey de Vries (creator of _"learnopengl.com"_) for parts of code and tutorials
 
 ## License
 - UNLICENSE for this repository (see `UNLICENSE.txt` for more details)
