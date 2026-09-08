@@ -18,6 +18,7 @@ Atom3D features:
 
 ## Credits
 - Thanks Joey de Vries (creator of _"learnopengl.com"_) for parts of code and tutorials
+- Thanks Yan Chernikov (known as _The Cherno_) for the project template
 
 ## License
 - UNLICENSE for this repository (see `UNLICENSE.txt` for more details)
