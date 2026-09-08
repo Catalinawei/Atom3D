@@ -3,16 +3,16 @@ Atom3D is a 3D game engine written in C++ and OpenGL 3.3
 
 ## Features & Mechanics
 Atom3D features:
-    * Entity Component System (OOP based),
-    * Memory Pool,
-    * .obj files loading,
-    * Custom scene file loading,
-    * Bullet physics,
+    * Entity Component System (OOP based)
+    * Memory Pool
+    * .obj files loading
+    * Custom scene file loading
+    * Bullet physics
     * Phong lighting
-        * Directional Light,
-        * Point light,
+        * Directional Light
+        * Point light
         * Spot light
-    * ImGui Debug UI,
+    * ImGui Debug UI
     * Skybox
 
 ## Credits
