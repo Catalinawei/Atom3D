@@ -59,7 +59,8 @@ void Scene::Initiallize(const char* scenePath, Camera* camera, GLFWwindow* windo
 						std::cout << "CharacterController found\n";
 						CharacterController* controller = new CharacterController();
 						controller->Setup(actor, physicsComp, camera, window, 500.0f);
-						controller->SetFriction(0.01f);
+						controller->SetMaxSpeed(1000.f);
+						controller->SetFriction(1.f);
 						modifiableData.components.push_back(controller);
 						actor->AddComponent<CharacterController>(controller);
 					}

@@ -5,32 +5,6 @@
 
 namespace AtomToolKit {
 
-	struct MeshData {
-		std::vector<glm::vec3> vertices, normals;
-		std::vector<glm::vec2> uv;
-		std::string materialFileName;
-		std::vector<std::string> materialNames;
-
-		std::unordered_map<std::string, Material> m_materials;
-	};
-
-	struct GameObject {
-		glm::vec3 position = glm::vec3(1.0f);
-		glm::vec3 rotation = glm::vec3(1.0f);
-		glm::vec3    scale = glm::vec3(1.0f);
-
-		MeshData* data = nullptr;
-
-		Material* material;
-
-		float mass = 1.0f;
-
-		std::vector<glm::vec3> vertices;
-
-		std::vector<std::string> componentNames;
-		std::vector<Component*> components;
-	};
-
 	class ResourceManager {
 	public:
 
@@ -42,6 +16,10 @@ namespace AtomToolKit {
 			MeshData mesh_data;
 			try {
 				//load .obj and .mtl files
+				//if a mesh has the same .obj, then skip loading again
+				if (meshes[path].meshFile == path)
+					return &meshes[path];
+
 				OBJloader::LoadObject(path, mesh_data.vertices, mesh_data.uv, mesh_data.normals
 					, mesh_data.materialFileName);
 
@@ -83,9 +61,10 @@ namespace AtomToolKit {
 		}
 
 		GameObject* getObject(const char* name) {
-			GameObject* object = new GameObject();
+			//remove bc new takes heap time
+			//GameObject* object = new GameObject();
 
-			std::cout << objects[name].meshFile << "\n";
+			//std::cout << objects[name].meshFile << "\n";
 			auto meshData = getMesh(objects[name].meshFile.c_str());
 			if (!meshData) {
 				std::cout << "mesh data is nullptr\n";
@@ -96,26 +75,20 @@ namespace AtomToolKit {
 			if (!meshData->materialNames.empty()) {
 				objectMaterial = getMaterial(meshData, meshData->materialNames[0].c_str());
 			}
-			object->data = meshData;
-			object->position = objects[name].position;
-			object->rotation = objects[name].rotation;
-			object->scale = objects[name].scale;
-			object->material = objectMaterial;
-			object->mass = objects[name].mass;
-			object->vertices = meshData->vertices;
-			object->components = objects[name].components;
-			object->componentNames = objects[name].componentNames;
-			return object;
+			objects[name].data = meshData;
+			objects[name].material = objectMaterial;
+			objects[name].vertices = meshData->vertices;
+			return &objects[name];
 		}
 
-		const std::unordered_map<std::string, Object>& GetAllObjects() const {
+		auto& GetAllObjects(){
 			return objects;
 		}
 
 	private:
 		std::unordered_map <std::string, MeshData> meshes;
 		std::unordered_map<std::string, Material> materials;
-		std::unordered_map<std::string, Object> objects;
+		std::unordered_map<std::string, GameObject> objects;
 
 		OBJloader* loader;
 

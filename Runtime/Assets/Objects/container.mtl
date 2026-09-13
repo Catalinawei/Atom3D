@@ -1,12 +1,12 @@
 # All faces use the SAME texture (like a crate/box)
-# You only need ONE texture file: container.jpg
+# You only need ONE texture file: w_crate.jpg
 
 newmtl WhiteMaterial
 Ka 0.1 0.1 0.1
 Kd 1.0 1.0 1.0
 Ks 0.5 0.5 0.5
 Ns 20.0
-map_Kd Assets/Objects/container.jpg
+map_Kd Assets/Textures/w_crate.jpg
 
 newmtl BlueMaterial
 Ka 0.0 0.0 0.2

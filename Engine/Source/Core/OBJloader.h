@@ -46,6 +46,38 @@ namespace AtomToolKit {
 		std::vector<std::string> componentNames;
 	};
 
+	struct MeshData {
+		std::vector<glm::vec3> vertices, normals;
+		std::vector<glm::vec2> uv;
+		std::string materialFileName;
+		std::vector<std::string> materialNames;
+
+		std::unordered_map<std::string, Material> m_materials;
+
+		const char* meshFile;
+	};
+
+	struct GameObject {
+		std::string name = "unnamed";
+
+		glm::vec3 position = glm::vec3(1.0f);
+		glm::vec3 rotation = glm::vec3(1.0f);
+		glm::vec3    scale = glm::vec3(1.0f);
+
+		MeshData* data = nullptr;
+
+		Material* material;
+
+		float mass = 1.0f;
+
+		std::vector<glm::vec3> vertices;
+
+		std::vector<std::string> componentNames;
+		std::vector<Component*> components;
+
+		std::string meshFile;
+	};
+
 	class OBJloader
 	{
 	public:
@@ -187,8 +219,8 @@ namespace AtomToolKit {
 			return temp_map;
 		}
 
-		std::unordered_map<std::string, Object> LoadScene(const char* path) {
-			std::unordered_map<std::string, Object> objects;
+		std::unordered_map<std::string, GameObject> LoadScene(const char* path) {
+			std::unordered_map<std::string, GameObject> objects;
 
 			auto File = std::make_unique<std::ifstream>(path);
 
@@ -197,7 +229,7 @@ namespace AtomToolKit {
 			}
 
 			std::string line;
-			Object currentObject;
+			GameObject currentObject;
 			bool hasObject = false;
 			while (std::getline(*File, line)) {
 
@@ -211,7 +243,7 @@ namespace AtomToolKit {
 						objects[currentObject.name] = currentObject;
 					}
 
-					currentObject = Object();
+					currentObject = GameObject();
 					iss >> currentObject.name;
 					hasObject = true;
 				}
@@ -225,10 +257,12 @@ namespace AtomToolKit {
 					iss >> currentObject.scale.x >> currentObject.scale.y >> currentObject.scale.z;
 				}
 				else if (token == "vSh") {
-					iss >> currentObject.vertexShaderFile;
+					//do later
+					//iss >> currentObject.vertexShaderFile;
 				}
 				else if (token == "fSh") {
-					iss >> currentObject.fragmentShaderFile;
+					//do later
+					//iss >> currentObject.fragmentShaderFile;
 				}
 				else if (token == "mesh") {
 					iss >> currentObject.meshFile;

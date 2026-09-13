@@ -45,6 +45,10 @@ namespace AtomToolKit {
 			return m_shader;
 		}
 
+		void SetCameraPos(const glm::vec3& pos) {
+			cameraPos = pos;
+		}
+
 		float FOV;
 	private:
 		glm::vec3 cameraPos;

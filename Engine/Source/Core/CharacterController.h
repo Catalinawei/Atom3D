@@ -12,7 +12,7 @@ namespace AtomToolKit {
 	public:
 		CharacterController() :
 			m_physics(nullptr), m_camera(nullptr), m_window(nullptr), moveSpeed(10.0f), m_friction(1.0f), jumpForce(2500.0f), jumpingToggle(false), m_owner(nullptr),
-			groundCheckDistance(1.0f), height(1.8f){}
+			groundCheckDistance(1.0f), height(1.8f), maxSpeed(1000.0f){}
 
 		void Setup(AtomToolKit::Actor* actor, AtomToolKit::PhysicsComponent* physics, AtomToolKit::Camera* camera, GLFWwindow* window, float speed);
 		void Update(float deltaTime) override;
@@ -20,6 +20,9 @@ namespace AtomToolKit {
 	public:
 		void SetFriction(const btScalar& friction) {
 			m_friction = friction;
+		}
+		void SetMaxSpeed(const btScalar& speed) {
+			maxSpeed = speed;
 		}
 
 		bool grounded() {
@@ -36,6 +39,12 @@ namespace AtomToolKit {
 		}
 
 	private:
+		glm::vec3 cameraForward = glm::vec3(0.0f);
+		glm::vec3 cameraCross = glm::vec3(0.0f);
+		btVector3 forward = btVector3(0.f, 0.f, 0.f);
+		btVector3 right = btVector3(0.f, 0.f, 0.f);
+		btVector3 up = btVector3(0.f, 0.f, 0.f);
+	private:
 
 		AtomToolKit::PhysicsComponent* m_physics;
 		AtomToolKit::Camera* m_camera;
@@ -49,5 +58,7 @@ namespace AtomToolKit {
 		bool jumpingToggle;
 		float groundCheckDistance;
 		float height;
+
+		float maxSpeed;
 	};
 }

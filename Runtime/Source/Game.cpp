@@ -115,13 +115,13 @@ void Game::Update() {
 			}
 		}
 
-		//if (soundGood) {
-		//	Sound sound;
-		//	gameInstance->m_audio->loadWavFile("Assets/Audio/unhappy.wav", sound);
-		//	gameInstance->m_audio->ChangeVolume(sound, AUDIO_S32LSB, 1);//max volume = 128
-		//	gameInstance->m_audio->PlaySimpleAudio(sound);
-		//	soundGood = false;
-		//}
+		if (soundGood) {
+			Sound sound;
+			gameInstance->m_audio->loadWavFile("Assets/Audio/car.wav", sound);
+			gameInstance->m_audio->ChangeVolume(sound, AUDIO_U8, 1);//max volume = 128
+			gameInstance->m_audio->PlaySimpleAudio(sound);
+			soundGood = false;
+		}
 
 		//check for any events 
 		glfwPollEvents();
